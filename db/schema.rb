@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_26_201511) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_26_203709) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -59,8 +59,47 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_26_201511) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.date "order_placed"
+    t.date "order_processed"
+    t.date "order_shipped"
+    t.string "order_status"
+    t.decimal "sub_total"
+    t.decimal "order_total"
+    t.decimal "total_payed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "past_orders", force: :cascade do |t|
+    t.date "order_placed"
+    t.date "order_processed"
+    t.date "order_shipped"
+    t.string "order_status"
+    t.decimal "sub_total"
+    t.decimal "order_total"
+    t.decimal "total_payed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "platforms", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "user_name"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "password"
+    t.text "user_bio"
+    t.string "profile_pic"
+    t.integer "account_type"
+    t.string "favourite_game"
+    t.string "favourite_genre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
