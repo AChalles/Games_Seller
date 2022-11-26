@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'past_order/index'
+  get 'past_order/show'
   get 'order/index'
   get 'order/show'
   get 'user/index'
