@@ -1,0 +1,2 @@
+class PastOrder < ApplicationRecord
+end
