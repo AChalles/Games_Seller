@@ -2,6 +2,16 @@
 
 <%= render @genre %>
 
+<ol class="ml-5">
+    <% @games.each do |game| %>
+      <% if game.genre.name == @genre.name%>
+        <li>
+          <%= link_to game.name, game %>
+        </li>
+      <% end %>
+    <% end %>
+  </ol>
+
 <div>
   <%= link_to "Edit this genre", edit_genre_path(@genre) %> |
   <%= link_to "Back to genres", genres_path %>

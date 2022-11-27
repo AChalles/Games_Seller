@@ -13,6 +13,7 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
+    @genre = Genre.all.map{|g| [ g.name, g.id ] }
   end
 
   # GET /games/1/edit
