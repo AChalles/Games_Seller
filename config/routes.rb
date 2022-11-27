@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'games#index'
   get 'past_order/index'
   get 'past_order/show'
   get 'order/index'

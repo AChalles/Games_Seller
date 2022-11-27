@@ -48,7 +48,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_26_203709) do
     t.text "description"
     t.date "publish_date"
     t.decimal "price"
-    t.integer "stock"
+    t.integer "genre_id"
+    t.integer "platform_id"
+    t.integer "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
