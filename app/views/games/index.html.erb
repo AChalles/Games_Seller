@@ -1,7 +1,8 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Games</h1>
-
+<%= paginate @games %>
+  <%= page_entries_info @games %>
 <div id="games">
   <% @games.each do |game| %>
     <%= render game %>
