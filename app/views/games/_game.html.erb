@@ -6,7 +6,12 @@
 
   <p>
     <strong>Genre:</strong>
-    <%= game.genre.name %>
+    <%# <%= game.genre.name %>
+    <% if @game != nil %>
+    <%= link_to @game.genre.name, @game.genre%>
+    <% elsif game != nil %>
+    <%= link_to game.genre.name, game.genre%>
+    <% end %>
   </p>
 
   <p>
