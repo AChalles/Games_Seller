@@ -1,7 +1,8 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @genre %>
-
+<%= paginate @games %>
+  <%= page_entries_info @games %>
 <ol class="ml-5">
     <% @games.each do |game| %>
       <% if game.genre.name == @genre.name%>
@@ -13,8 +14,8 @@
   </ol>
 
 <div>
-  <%= link_to "Edit this genre", edit_genre_path(@genre) %> |
+  <%# <%= link_to "Edit this genre", edit_genre_path(@genre) %>
   <%= link_to "Back to genres", genres_path %>
 
-  <%= button_to "Destroy this genre", @genre, method: :delete %>
+  <%# <%= button_to "Destroy this genre", @genre, method: :delete %>
 </div>

@@ -32,13 +32,8 @@
   </div>
 
   <div>
-    <%= form.label :stock, style: "display: block" %>
-    <%= form.number_field :stock %>
-  </div>
-
-  <div>
     <%= form.label :genre, style: "display: block" %>
-    <%= form.select(:genre, @genre) %>
+    <%= form.select(:genre_id, @genre) %>
   </div>
 
   <div>

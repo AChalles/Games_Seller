@@ -12,52 +12,55 @@ class GamesController < ApplicationController
   end
 
   # GET /games/new
-  def new
-    @game = Game.new
-    @genre = Genre.all.map{|g| [ g.name, g.id ] }
-  end
+  # def new
+  #   @game = Game.new
+  #   @genre = Genre.all.map{|g| [ g.name, g.id ] }
+  # end
 
   # GET /games/1/edit
-  def edit
-  end
+  # def edit
+  #   @game = Game.find(params[:id])
+  #   @genre = Genre.all.map{|g| [ g.name, g.id ] }
+  # end
 
   # POST /games or /games.json
-  def create
-    @game = Game.new(game_params)
+  # def create
+  #   @game = Game.new(game_params)
 
-    respond_to do |format|
-      if @game.save
-        format.html { redirect_to game_url(@game), notice: "Game was successfully created." }
-        format.json { render :show, status: :created, location: @game }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   respond_to do |format|
+  #     if @game.save
+  #       format.html { redirect_to game_url(@game), notice: "Game was successfully created." }
+  #       format.json { render :show, status: :created, location: @game }
+  #     else
+  #       format.html { render :new, status: :unprocessable_entity }
+  #       format.json { render json: @game.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /games/1 or /games/1.json
-  def update
-    respond_to do |format|
-      if @game.update(game_params)
-        format.html { redirect_to game_url(@game), notice: "Game was successfully updated." }
-        format.json { render :show, status: :ok, location: @game }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def update
+  #   respond_to do |format|
+  #     if @game.update(game_params)
+  #       puts @game
+  #       format.html { redirect_to game_url(@game), notice: "Game was successfully updated." }
+  #       format.json { render :show, status: :ok, location: @game }
+  #     else
+  #       format.html { render :edit, status: :unprocessable_entity }
+  #       format.json { render json: @game.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /games/1 or /games/1.json
-  def destroy
-    @game.destroy
+  # def destroy
+  #   @game.destroy
 
-    respond_to do |format|
-      format.html { redirect_to games_url, notice: "Game was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html { redirect_to games_url, notice: "Game was successfully destroyed." }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -67,6 +70,6 @@ class GamesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def game_params
-      params.require(:game).permit(:name, :description, :publish_date, :price, :stock)
+      params.require(:game).permit(:name, :description, :publish_date, :price, :genre_id, :company_id)
     end
 end
