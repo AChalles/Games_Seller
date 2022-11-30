@@ -28,7 +28,7 @@ increment = 1
   if !games.nil?
     games["results"].each do |g|
       # puts g["id"]
-      gameapi= "https://api.rawg.io/api/games/#{g["id"]}?key=bbc9bcd78eb64724aa0915ce125edc6b"
+      gameapi = "https://api.rawg.io/api/games/#{g["id"]}?key=bbc9bcd78eb64724aa0915ce125edc6b"
       response = RestClient.get gameapi
       api = JSON.parse response
 
@@ -41,7 +41,7 @@ increment = 1
           name:         g["name"],
           description:  api["description_raw"],
           publish_date:  g["released"],
-          price:  sprintf('%.2f', rand(20.99..79.99)),
+          price:  rand(2099..7999).to_i,
           company: company
         )
       end

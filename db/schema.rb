@@ -47,7 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_26_203709) do
     t.string "name"
     t.text "description"
     t.date "publish_date"
-    t.decimal "price"
+    t.integer "price"
     t.integer "genre_id"
     t.integer "platform_id"
     t.integer "company_id"
