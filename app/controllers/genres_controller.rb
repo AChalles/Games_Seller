@@ -8,6 +8,7 @@ class GenresController < ApplicationController
 
   # GET /genres/1 or /genres/1.json
   def show
+    @genres = Genre.all
     @genre = Genre.find(params[:id])
     @games = Game.where("genre_id LIKE ?", params[:id]).order(name: :asc).page(params[:page])
   end

@@ -4,13 +4,28 @@ class GamesController < ApplicationController
   # GET /games or /games.json
   def index
     @games = Game.order(name: :asc).page(params[:page])
-
+    @genres = Genre.all
   end
 
   # GET /games/1 or /games/1.json
   def show
+    @genres = Genre.all
   end
 
+  def search
+    @genres = Genre.all
+
+    search_param = "%#{params[:keywords]}%"
+    if params[:genres].blank? && params[:keywords].blank?
+    redirect_to root_path and return
+    elsif params[:genres].blank?
+      @games = Game.where("lower(name) LIKE ? OR lower(description) LIKE ?", search_param, search_param )
+    elsif params[:keywords].blank?
+      @games = Game.where(genre_id: params[:genres])
+    else
+      @games = Game.where(genre_id: params[:genres]).where("lower(name) LIKE ? OR lower(description) LIKE ?", search_param, search_param )
+    end
+  end
   # GET /games/new
   # def new
   #   @game = Game.new
