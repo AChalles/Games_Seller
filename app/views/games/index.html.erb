@@ -1,6 +1,21 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Games</h1>
+
+<%= debug session[:cart] %>
+<details>
+  <summary>Shopping Cart</summary>
+  <% if @cart.empty? %>
+    <p>No items in cart.</p>
+  <% else %>
+  <ul>
+    <% @cart.each do |game|%>
+      <li><%= game.name %> <%= button_to 'remove from cart', remove_from_cart_path(game.id), method: :delete %></li>
+    <% end %>
+  </ul>
+  <% end %>
+</details>
+
 <%= paginate @games %>
   <%= page_entries_info @games %>
 <div id="games">
@@ -9,6 +24,12 @@
     <p>
       <%= link_to "Show this game", game %>
     </p>
+    <%# <p><%= link_to "add to cart", add_to_cart_path(game.id), method: :post </p> %>
+    <% if @cart.include?(game)%>
+      <p><%= button_to 'remove from cart', remove_from_cart_path(game.id), method: :delete %></p>
+    <% else %>
+      <%= button_to 'add to cart', add_to_cart_path(game.id) %>
+    <% end %>
   <% end %>
 </div>
 

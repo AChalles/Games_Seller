@@ -1,20 +1,30 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: %i[ show edit update destroy ]
-
+  before_action :set_game, only: %i[ show add_to_cart ]
+  before_action :initialize_session
+  before_action :increment_visit_count, only: %i[index]
+  before_action :load_cart
   # GET /games or /games.json
   def index
     @games = Game.order(name: :asc).page(params[:page])
-    @genres = Genre.all
   end
 
   # GET /games/1 or /games/1.json
   def show
-    @genres = Genre.all
+  end
+
+  def add_to_cart
+    id = params[:id].to_i
+    session[:cart] << id unless session[:cart].include?(id)
+    redirect_to root_path
+  end
+
+  def remove_from_cart
+    id = params[:id].to_i
+    session[:cart].delete(id)
+    redirect_to root_path
   end
 
   def search
-    @genres = Genre.all
-
     search_param = "%#{params[:keywords]}%"
     if params[:genres].blank? && params[:keywords].blank?
     redirect_to root_path and return
@@ -78,6 +88,20 @@ class GamesController < ApplicationController
   # end
 
   private
+
+    def initialize_session
+      session[:visit_count] ||= 0
+      session[:cart] ||= []
+    end
+
+    def load_cart
+      @cart = Game.find(session[:cart])
+    end
+
+    def increment_visit_count
+      session[:visit_count] += 1
+      @visit_count = session[:visit_count]
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_game
       @game = Game.find(params[:id])
