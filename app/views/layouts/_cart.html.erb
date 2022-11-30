@@ -1,0 +1,13 @@
+<%= debug session[:cart] %>
+<details>
+  <summary>Shopping Cart</summary>
+  <% if @cart.blank? %>
+    <p>No items in cart.</p>
+  <% else %>
+  <ul>
+    <% @cart.each do |item|%>
+      <li><%= item.name %> <%= button_to 'remove from cart', remove_from_cart_path(item.id), method: :delete %></li>
+    <% end %>
+  </ul>
+  <% end %>
+</details>
