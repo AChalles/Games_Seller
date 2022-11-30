@@ -18,12 +18,6 @@ class GamesController < ApplicationController
     redirect_to root_path
   end
 
-  def remove_from_cart
-    id = params[:id].to_i
-    session[:cart].delete(id)
-    redirect_to root_path
-  end
-
   def search
     search_param = "%#{params[:keywords]}%"
     if params[:genres].blank? && params[:keywords].blank?
@@ -91,11 +85,6 @@ class GamesController < ApplicationController
 
     def initialize_session
       session[:visit_count] ||= 0
-      session[:cart] ||= []
-    end
-
-    def load_cart
-      @cart = Game.find(session[:cart])
     end
 
     def increment_visit_count

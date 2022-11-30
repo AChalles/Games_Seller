@@ -3,6 +3,11 @@
 <%= render @game %>
 
 <div>
+  <% if @cart.include?(@game)%>
+    <p><%= button_to 'remove from cart', remove_from_cart_path(@game.id), method: :delete %></p>
+  <% else %>
+    <%= button_to 'add to cart', add_to_cart_path(@game.id) %>
+  <% end %>
   <%# <%= link_to "Edit this game", edit_game_path(@game) %>
   <%= link_to "Back to games", games_path %>
 
