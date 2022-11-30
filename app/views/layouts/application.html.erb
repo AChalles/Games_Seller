@@ -12,6 +12,18 @@
 
   <body>
     <%= render "layouts/navbar" %>
+
+    <%= form_with(url: search_games_path, method: :get, local: true) do %>
+          <div class="field is-ground mb-5">
+            <div class="control is-expanded">
+              <%= text_field_tag(:keywords, nil, class: "input", placeholder: 'Search For Games') %>
+              <%= select_tag 'genres', options_for_select(Genre.all.map{|el| [el.name, el.id]}), :prompt => "All Genres" %>
+            </div>
+            <div class="control">
+              <%=submit_tag("Search", class: "button is-primary")%>
+            </div>
+          </div>
+      <% end %>
     <%= yield %>
   </body>
 </html>
