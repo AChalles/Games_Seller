@@ -19,7 +19,9 @@ class ApplicationController < ActionController::Base
   end
 
   def load_cart
-    @cart = Game.find(session[:cart])
+    if !session[:cart].blank? &&!session[:cart].empty?
+      @cart = Game.find(session[:cart])
+    end
   end
 
 

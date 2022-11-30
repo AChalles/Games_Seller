@@ -14,6 +14,7 @@ class GamesController < ApplicationController
 
   def add_to_cart
     id = params[:id].to_i
+    quantity = 1
     session[:cart] << id unless session[:cart].include?(id)
     redirect_to root_path
   end

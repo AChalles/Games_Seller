@@ -3,7 +3,7 @@
 <%= render @game %>
 
 <div>
-  <% if @cart.include?(@game)%>
+  <% if !@cart.blank? && @cart.include?(@game)%>
     <p><%= button_to 'remove from cart', remove_from_cart_path(@game.id), method: :delete %></p>
   <% else %>
     <%= button_to 'add to cart', add_to_cart_path(@game.id) %>
