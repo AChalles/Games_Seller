@@ -1,0 +1,27 @@
+<p style="color: green"><%= notice %></p>
+
+<div id="<%= dom_id @company %>">
+  <p>
+    <strong>Name:</strong>
+    <%= @company.name %>
+  </p>
+</div>
+
+<%= paginate @games %>
+  <%= page_entries_info @games %>
+<ol class="ml-5">
+    <% @games.each do |game| %>
+      <% if game.company.name == @company.name%>
+        <li>
+          <%= link_to game.name, game %>
+        </li>
+      <% end %>
+    <% end %>
+  </ol>
+
+<div>
+  <%# <%= link_to "Edit this game", edit_game_path(@game) %>
+  <%= link_to "Back to companies", companies_path %>
+
+  <%# <%= button_to "Destroy this game", @game, method: :delete %>
+</div>

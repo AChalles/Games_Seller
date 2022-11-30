@@ -1,2 +1,18 @@
-<h1>Companies#index</h1>
-<p>Find me in app/views/companies/index.html.erb</p>
+<p style="color: green"><%= notice %></p>
+
+<h1>Companies</h1>
+<%= paginate @companies %>
+  <%= page_entries_info @companies %>
+<div id="companies">
+  <% @companies.each do |company| %>
+   <div id="<%= dom_id company %>">
+  <p>
+    <strong>Name:</strong>
+    <%= company.name %>
+  </p>
+</div>
+    <p>
+      <%= link_to "Show this company", company %>
+    </p>
+  <% end %>
+</div>
