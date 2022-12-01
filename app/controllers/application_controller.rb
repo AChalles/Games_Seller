@@ -8,15 +8,36 @@ class ApplicationController < ActionController::Base
     iteration = 0
     count = 0
     session[:cart_id].each do |c|
-      if c = id
+      if c == id
         count = iteration
       end
       iteration += 1
     end
-    quantity = session[:cart_quantity][count]
-    session[:cart_quantity].delete(quantity)
+    session[:cart_quantity].delete_at(count)
     session[:cart_id].delete(id)
-    redirect_to root_path
+    redirect_to root_path and return
+  end
+
+  def remove_quantity_from_cart
+    id = params[:id].to_i
+    puts id
+    iteration = 0
+    count = 0
+    session[:cart_id].each do |c|
+      if c == id
+        count = iteration
+      end
+      iteration += 1
+    end
+    if session[:cart_quantity][count] != 1
+      session[:cart_quantity][count] -= 1
+      return redirect_to root_path
+    else
+      session[:cart_quantity].delete_at(count)
+      session[:cart_id].delete_at(count)
+      redirect_to root_path and return
+    end
+
   end
 
   private
