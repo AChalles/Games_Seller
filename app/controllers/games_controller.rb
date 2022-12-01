@@ -15,7 +15,38 @@ class GamesController < ApplicationController
   def add_to_cart
     id = params[:id].to_i
     quantity = 1
-    session[:cart] << id unless session[:cart].include?(id)
+    iteration = 0
+    count = 0
+    if session[:cart_id].include?(id)
+      session[:cart_id].each do |c|
+        if c == id
+          count = iteration
+        end
+        iteration += 1
+      end
+      session[:cart_quantity][count] += 1
+    else
+      session[:cart_quantity] << quantity unless session[:cart_id].include?(id)
+      session[:cart_id] << id unless session[:cart_id].include?(id)
+    end
+
+    redirect_to root_path
+  end
+
+  def remove_quantity_from_cart
+    id = params[:id].to_i
+    puts id
+    iteration = 0
+    count = 0
+    session[:cart_id].each do |c|
+      if c == id
+        count = iteration
+      end
+      iteration += 1
+    end
+    if session[:cart_quantity][count] != 1
+      session[:cart_quantity][count] -= 1
+    end
     redirect_to root_path
   end
 
