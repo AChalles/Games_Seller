@@ -12,6 +12,11 @@ Rails.application.routes.draw do
   resources :genres
   resources :companies
   #resources :games
+  scope '/checkout' do
+    post 'create', to: 'checkout#create', as: 'checkout_create'
+    get 'cancel', to: 'checkout#cancel', as: 'checkout_cancel'
+    get 'success', to: 'checkout#success', as: 'checkout_success'
+  end
 
   resources :games, only: [:index, :show] do
     collection do

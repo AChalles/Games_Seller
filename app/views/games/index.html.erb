@@ -8,6 +8,7 @@
     <%= render game %>
     <p>
       <%= link_to "Show this game", game %>
+      <%= button_to "Buy game",checkout_create_path(game.id), remote: true %>
     </p>
   <% end %>
 </div>
