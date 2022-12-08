@@ -18,13 +18,8 @@ class GamesController < ApplicationController
     iteration = 0
     count = 0
     if session[:cart_id].include?(id)
-      session[:cart_id].each do |c|
-        if c == id
-          count = iteration
-        end
-        iteration += 1
-      end
-      session[:cart_quantity][count] += 1
+      index = session[:cart_id].index(id)
+      session[:cart_quantity][index] += 1
     else
       session[:cart_quantity] << quantity unless session[:cart_id].include?(id)
       session[:cart_id] << id unless session[:cart_id].include?(id)

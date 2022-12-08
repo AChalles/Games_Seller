@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
 
   private
   def initialize_genres
-    @genres = Genre.all
+    @nav_genres = Genre.all
   end
 
   def initialize_session

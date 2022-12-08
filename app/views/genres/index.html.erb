@@ -1,7 +1,8 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Genres</h1>
-
+<%= paginate @genres %>
+<%= page_entries_info @genres %>
 <div id="genres">
   <% @genres.each do |genre| %>
     <%= render genre %>
