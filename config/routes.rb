@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       get "search"
     end
   end
-
+  get 'pages/:permalink' => "pages#permalink", as: 'permalink'
   get 'checkout/index'
   post 'checkout/index'
   post 'checkout/update_tax', to: 'checkout#update_tax', as: 'update_tax'

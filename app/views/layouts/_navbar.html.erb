@@ -19,7 +19,6 @@
 
 
         <%= link_to "All Companies", companies_path, class: "navbar-item" %>
-        <%= link_to "All Genres", genres_path, class: "navbar-item" %>
         <div class="navbar-item has-dropdown is-hoverable">
           <%= link_to "All Genres", genres_path, class: "navbar-link" %>
 
@@ -27,6 +26,15 @@
             <% @nav_genres.each do |genre|%>
             <%= link_to genre.name, genre, class: "navbar-item" %>
             <% end %>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <%= link_to "More", "", class: "navbar-link" %>
+          <div class="navbar-dropdown">
+
+                    <% Page.all.each do | page |%>
+                      <%= link_to page.title, permalink_path(page.permalink), class: "navbar-item"  %>
+                    <% end %>
           </div>
         </div>
       </div>

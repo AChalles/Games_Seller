@@ -57,6 +57,7 @@ end
 end
 
 def seed_provinces
+  Province.delete_all
   Province.create(
     name: "Alberta",
     abbr: "AB",
@@ -164,6 +165,22 @@ def seed_provinces
 
 end
 
+def seed_pages
+  Page.delete_all
+  Page.create(
+    title: "About",
+    content:"",
+    permalink:"about"
+  )
+
+  Page.create(
+    title: "Contact",
+    content: "",
+    permalink: "contact"
+  )
+end
+
 #seed_admin();
 #seed_games();
-seed_provinces();
+#seed_provinces();
+seed_pages();
