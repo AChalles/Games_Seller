@@ -3,6 +3,22 @@ class ApplicationController < ActionController::Base
   before_action :initialize_session
   before_action :load_cart
 
+  def add_to_cart
+    id = params[:id].to_i
+    quantity = 1
+    iteration = 0
+    count = 0
+    if session[:cart_id].include?(id)
+      index = session[:cart_id].index(id)
+      session[:cart_quantity][index] += 1
+    else
+      session[:cart_quantity] << quantity unless session[:cart_id].include?(id)
+      session[:cart_id] << id unless session[:cart_id].include?(id)
+    end
+
+    redirect_to root_path
+  end
+
   def remove_from_cart
     id = params[:id].to_i
     iteration = 0

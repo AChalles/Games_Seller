@@ -1,31 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html class="has-background-light">
   <head>
     <title>GamesSeller</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+  <section class="section">
+  <div class="container">
     <%= render "layouts/navbar" %>
 
     <%= form_with(url: search_games_path, method: :get, local: true) do %>
           <div class="field is-ground mb-5">
             <div class="control is-expanded">
               <%= text_field_tag(:keywords, nil, class: "input", placeholder: 'Search For Games') %>
-              <%= select_tag 'genres', options_for_select(Genre.all.map{|el| [el.name, el.id]}), :prompt => "All Genres" %>
+              <div class="select">
+              <%= select_tag 'genres', options_for_select(Genre.all.map{|el| [el.name, el.id]}), :prompt => "All Genres", class: "select" %>
+              </div>
             </div>
             <div class="control">
-              <%=submit_tag("Search", class: "button is-primary")%>
+              <%=submit_tag("Search", class: "button is-link")%>
             </div>
           </div>
       <% end %>
-
-    <%= render "layouts/cart" %>
+    <% if controller_name != "checkout" %>
+      <%= render "layouts/cart" %>
+    <% end %>
     <%= yield %>
+  </div>
+  </section>
+
   </body>
 </html>

@@ -1,7 +1,5 @@
-<%= debug session[:cart_id] %>
-<%= debug session[:cart_quantity] %>
 <details>
-  <summary>Shopping Cart</summary>
+  <summary>Shopping Cart [<%= @cart_id.count%>]</summary>
   <% if @cart_id.blank? %>
     <p>No items in cart.</p>
   <% else %>
@@ -10,12 +8,15 @@
     <% @cart_id.each do |item|%>
 
       <li><%= item.name %> x <%= @cart_quantity[count] %>
-        <%= button_to 'add 1 quantity to cart', add_to_cart_path(item.id), method: :post %>
-        <%= button_to 'remove 1 quantity from cart', remove_quantity_from_cart_path(item.id), method: :post %>
-        <%= button_to 'remove from cart', remove_from_cart_path(item.id), method: :delete %>
+        <%= button_to 'add 1 quantity to cart', add_to_cart_path(item.id), method: :post, class: "button is-small" %>
+        <%= button_to 'remove 1 quantity from cart', remove_quantity_from_cart_path(item.id), method: :post, class: "button is-small" %>
+        <%= button_to 'remove from cart', remove_from_cart_path(item.id), method: :delete, class: "button is-small" %>
       </li>
       <% count += 1%>
     <% end %>
   </ul>
+
   <% end %>
 </details>
+<%= button_to 'checkout', checkout_index_path, method: :get, class: "button is-link" %>
+<br>

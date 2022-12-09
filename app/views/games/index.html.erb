@@ -1,9 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Games</h1>
+<h1 class="title is-1">Games</h1>
 
 <%= paginate @games %>
   <%= page_entries_info @games %>
+  <div><br></div>
 <div id="games">
   <% @games.each do |game| %>
     <%= render game %>
@@ -12,12 +13,13 @@
     </p>
     <%# <p><%= link_to "add to cart", add_to_cart_path(game.id), method: :post </p> %>
     <% if !@cart_id.blank? && @cart_id.include?(game)%>
-      <p><%= button_to 'add 1 quantity to cart', add_to_cart_path(game.id)%></p>
-      <p><%= button_to 'remove 1 quantity from cart', remove_quantity_from_cart_path(game.id) %></p>
-      <p><%= button_to 'remove from cart', remove_from_cart_path(game.id), method: :delete %></p>
+      <p><%= button_to 'add 1 quantity to cart', add_to_cart_path(game.id),class: "button is-small"%></p>
+      <p><%= button_to 'remove 1 quantity from cart', remove_quantity_from_cart_path(game.id),class: "button is-small" %></p>
+      <p><%= button_to 'remove from cart', remove_from_cart_path(game.id), method: :delete, class: "button is-small" %></p>
     <% else %>
-      <%= button_to 'add to cart', add_to_cart_path(game.id) %>
+      <%= button_to 'add to cart', add_to_cart_path(game.id), class: "button is-small" %>
     <% end %>
+    <br>
   <% end %>
 </div>
 

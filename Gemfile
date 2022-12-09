@@ -80,3 +80,5 @@ group :test do
 end
 
 gem 'rest-client', '~> 2.1'
+
+gem "bulma-rails", "~> 0.9.4"

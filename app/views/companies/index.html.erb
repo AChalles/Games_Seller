@@ -1,18 +1,17 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Companies</h1>
+<h1 class="title is-1">Companies</h1>
 <%= paginate @companies %>
   <%= page_entries_info @companies %>
+  <div><br></div>
 <div id="companies">
   <% @companies.each do |company| %>
    <div id="<%= dom_id company %>">
-  <p>
-    <strong>Name:</strong>
-    <%= company.name %>
-  </p>
+  <h1 class="title is-4"><%= company.name %></h1>
 </div>
     <p>
       <%= link_to "Show this company", company %>
     </p>
+    <br>
   <% end %>
 </div>

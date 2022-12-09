@@ -4,12 +4,12 @@
 
 <div>
   <% if !@cart.blank? && @cart.include?(@game)%>
-    <p><%= button_to 'remove from cart', remove_from_cart_path(@game.id), method: :delete %></p>
+    <p><%= button_to 'remove from cart', remove_from_cart_path(@game.id), method: :delete, class: "button is-small"%></p>
   <% else %>
-    <%= button_to 'add to cart', add_to_cart_path(@game.id) %>
+    <%= button_to 'add to cart', add_to_cart_path(@game.id), class: "button is-small" %>
   <% end %>
   <%# <%= link_to "Edit this game", edit_game_path(@game) %>
-  <%= link_to "Back to games", games_path %>
+  <%= link_to "Back to games", games_path, class: "button is-link" %>
 
   <%# <%= button_to "Destroy this game", @game, method: :delete %>
 </div>

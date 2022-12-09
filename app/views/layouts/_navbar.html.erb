@@ -1,19 +1,52 @@
 <header>
-  <div class='container'>
+  <section class="section">
+  <div class="container">
+  <nav class="navbar  has-background-light" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://bulma.io">
+        <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+      </a>
 
-  <nav>
-    <ul>
-      <%# <li><%= link_to "Home", home_path </li>%>
-      <li><%= link_to "All Games", games_path %></li>
-      <li><%= link_to "All Genres", genres_path %></li>
-      <li><%= link_to "All Companies", companies_path %></li>
-      <% @nav_genres.each do |genre|%>
-        <li><%= link_to genre.name, genre %></li>
-      <% end %>
-      <%# <li><%= link_to "About us", about_path </li>%>
-      <%# <li><%= link_to "Contact us", contact_path </li>%>
-    </ul>
-  </nav>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <%= link_to "All Games", games_path, class: "navbar-item" %>
+
+
+        <%= link_to "All Companies", companies_path, class: "navbar-item" %>
+        <%= link_to "All Genres", genres_path, class: "navbar-item" %>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <%= link_to "All Genres", genres_path, class: "navbar-link" %>
+
+          <div class="navbar-dropdown">
+            <% @nav_genres.each do |genre|%>
+            <%= link_to genre.name, genre, class: "navbar-item" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <%# <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light">
+              Log in
+            </a>
+          </div>
+        </div>
+      </div>
+    </div> %>
+</nav>
   </div>
+  </section>
+
 </header>
 
