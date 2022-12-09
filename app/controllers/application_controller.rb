@@ -2,39 +2,36 @@ class ApplicationController < ActionController::Base
   before_action :initialize_genres
   before_action :initialize_session
   before_action :load_cart
+  before_action :require_login
+  helper_method :current_user
+
+  def require_login
+    redirect_to new_session_path unless session.include? :user_id
+  end
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
 
   def remove_from_cart
     id = params[:id].to_i
     iteration = 0
     count = 0
-    session[:cart_id].each do |c|
-      if c == id
-        count = iteration
-      end
-      iteration += 1
-    end
-    session[:cart_quantity].delete_at(count)
+    index = session[:cart_id].index(id)
+    session[:cart_quantity].delete_at(index)
     session[:cart_id].delete(id)
     redirect_to root_path and return
   end
 
   def remove_quantity_from_cart
     id = params[:id].to_i
-    puts id
-    iteration = 0
-    count = 0
-    session[:cart_id].each do |c|
-      if c == id
-        count = iteration
-      end
-      iteration += 1
-    end
-    if session[:cart_quantity][count] != 1
-      session[:cart_quantity][count] -= 1
+    index = session[:cart_id].index(id)
+    if session[:cart_quantity][index] != 1
+      session[:cart_quantity][index] -= 1
       return redirect_to root_path
     else
-      session[:cart_quantity].delete_at(count)
-      session[:cart_id].delete_at(count)
+      session[:cart_quantity].delete_at(index)
+      session[:cart_id].delete_at(index)
       redirect_to root_path and return
     end
 
