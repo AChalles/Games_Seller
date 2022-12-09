@@ -6,7 +6,7 @@ tax = 0%>
 <div class= "container">
 <h1>Invoice</h1>
 <%= form_with method: :get do |f|%>
- <%= f.select 'province', options_for_select([ "MB","AB", "BC", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT"]), class: "select"%>
+ <%= f.select 'province', options_for_select(Province.all.map{|el| [el.name, el.abbr]}), class: "select"%>
  <%= f.button "Update Tax"%>
 <% end %>
 <table>

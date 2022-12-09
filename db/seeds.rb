@@ -11,15 +11,20 @@
 
 # https://api.rawg.io/api/games?key=bbc9bcd78eb64724aa0915ce125edc6b
 
+
+
+def seed_admin
+  User.delete_all
+  AdminUser.delete_all
+  #uncomment this line if you delete the database.
+  AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+end
+
+
+def seed_games
 Game.delete_all
 Genre.delete_all
 Company.delete_all
-User.delete_all
-AdminUser.delete_all
-
-#uncomment this line if you delete the database.
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
-
 increment = 1
 5.times do
   gamesapi = "https://api.rawg.io/api/games?key=bbc9bcd78eb64724aa0915ce125edc6b&page=#{increment}"
@@ -49,3 +54,116 @@ increment = 1
   end
   increment = increment + 1
 end
+end
+
+def seed_provinces
+  Province.create(
+    name: "Alberta",
+    abbr: "AB",
+    pst: 0,
+    hst: 0,
+    gst: 0.05
+  )
+
+  Province.create(
+    name: "British Columbia",
+    abbr: "BC",
+    pst: 0.07,
+    hst: 0,
+    gst: 0.05
+  )
+
+  Province.create(
+    name: "Manitoba",
+    abbr: "MB",
+    pst: 0.07,
+    hst: 0,
+    gst: 0.05
+  )
+
+  Province.create(
+    name: "New Brunswick",
+    abbr: "NB",
+    pst: 0,
+    hst: 0.15,
+    gst: 0
+  )
+
+  Province.create(
+    name: "Newfoundland and Labrador",
+    abbr: "NL",
+    pst: 0,
+    hst: 0.15,
+    gst: 0
+  )
+
+  Province.create(
+    name: "Northwest Territories",
+    abbr: "NT",
+    pst: 0,
+    hst: 0,
+    gst: 0.05
+  )
+
+  Province.create(
+    name: "Nova Scotia",
+    abbr: "NS",
+    pst: 0,
+    hst: 0.15,
+    gst: 0
+  )
+
+  Province.create(
+    name: "Nunavut",
+    abbr: "NU",
+    pst: 0,
+    hst: 0,
+    gst: 0.05
+  )
+
+  Province.create(
+    name: "Ontario",
+    abbr: "ON",
+    pst: 0,
+    hst: 0.13,
+    gst: 0
+  )
+
+  Province.create(
+    name: "Prince Edward Island",
+    abbr: "PE",
+    pst: 0,
+    hst: 0.15,
+    gst: 0
+  )
+
+  Province.create(
+    name: "Quebec",
+    abbr: "QB",
+    pst: 0.0975,
+    hst: 0,
+    gst: 0.05
+  )
+
+  Province.create(
+    name: "Saskatchewan",
+    abbr: "SK",
+    pst: 0.06,
+    hst: 0,
+    gst: 0.05
+  )
+
+  Province.create(
+    name: "Yukon",
+    abbr: "YK",
+    pst: 0,
+    hst: 0,
+    gst: 0.05
+  )
+
+
+end
+
+#seed_admin();
+#seed_games();
+seed_provinces();

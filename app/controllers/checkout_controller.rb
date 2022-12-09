@@ -46,7 +46,7 @@ class CheckoutController < ApplicationController
     when "SK"
       @tax_percent = 0.11
 
-    when "YT"
+    when "YK"
       @tax_percent = 0.05
 
     else
