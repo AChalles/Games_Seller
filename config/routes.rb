@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'checkout/index'
 
   get 'past_order/index'
   get 'past_order/show'
@@ -12,6 +13,10 @@ Rails.application.routes.draw do
       get "search"
     end
   end
+
+  get 'checkout/index'
+  post 'checkout/index'
+  post 'checkout/update_tax', to: 'checkout#update_tax', as: 'update_tax'
   post 'games/add_to_cart/:id', to: 'games#add_to_cart', as: 'add_to_cart'
   post 'games/remove_quantity_from_cart/:id', to: 'games#remove_quantity_from_cart', as: 'remove_quantity_from_cart'
   delete 'games/remove_from_cart/:id', to: 'games#remove_from_cart', as: 'remove_from_cart'

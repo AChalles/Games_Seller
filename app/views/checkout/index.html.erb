@@ -1,0 +1,69 @@
+<%
+subTotal = 0
+tax_percent = 0
+tax = 0%>
+
+<div class= "container">
+<h1>Invoice</h1>
+<%= form_with method: :get do |f|%>
+ <%= f.select 'province', options_for_select([ "MB","AB", "BC", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT"]), class: "select"%>
+ <%= f.button "Update Tax"%>
+<% end %>
+<table>
+<th>Product</th>
+<th>Quantity</th>
+<th>Price</th>
+
+<tbody>
+  <% @cart_id.each do |item|%>
+  <% index = session[:cart_id].index(item.id)%>
+  <tr>
+    <td>
+      <%= link_to item.name, item%>
+    </td>
+    <td>
+      <%= @cart_quantity[index] %>
+    </td>
+    <td>
+      <%=number_to_currency (@cart_quantity[index] * item.price)/100.0%>
+      <% subTotal = subTotal + @cart_quantity[index] * item.price%>
+    </td>
+
+  </tr>
+  <% end %>
+  <tr>
+    <td>
+    </td>
+     <td>
+      Sub Total
+    </td>
+    <td>
+    <%= number_to_currency subTotal/100.0%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+     <td>
+      Taxes
+    </td>
+    <td>
+    <% tax = (subTotal * @tax_percent.to_f)%>
+    <%= number_to_currency tax/100.0%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      Total
+    </td>
+    <td>
+    <%= number_to_currency (subTotal + tax)/100.0%>
+    </td>
+  </tr>
+</tbody>
+</table>
+
+<%= button_to 'Checkout' %>
+</div>
