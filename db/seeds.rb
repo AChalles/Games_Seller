@@ -14,7 +14,6 @@
 Game.delete_all
 Genre.delete_all
 Company.delete_all
-User.delete_all
 AdminUser.delete_all
 
 #uncomment this line if you delete the database.

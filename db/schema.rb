@@ -91,21 +91,4 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_26_203709) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "user_name"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.string "password_digest"
-    t.string "password_confirmation"
-    t.string "province"
-    t.text "user_bio"
-    t.string "profile_pic"
-    t.integer "account_type"
-    t.string "favourite_game"
-    t.string "favourite_genre"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
 end
