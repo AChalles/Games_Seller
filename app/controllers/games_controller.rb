@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  skip_before_action :authenticate_user!
   before_action :set_game, only: %i[ show add_to_cart ]
   before_action :initialize_session
   before_action :increment_visit_count, only: %i[index]

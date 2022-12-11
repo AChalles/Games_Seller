@@ -7,7 +7,7 @@ tax = 0%>
 <h1>Invoice</h1>
 <%= form_with method: :get do |f|%>
 <div class="select">
- <%= f.select 'province', options_for_select(Province.all.map{|el| [el.name, el.abbr]}), class: "select"%>
+ <%= f.select 'province', options_for_select(Province.all.map{|el| [el.name, el.id]}, params[:province]), class: "select"%>
  </div>
  <%= f.button "Update Tax", class: "button is-link"%>
 <% end %>
@@ -67,5 +67,5 @@ tax = 0%>
 </tbody>
 </table>
 
-<%= button_to 'Checkout',"", class: "button is-link"%>
+<%= button_to 'Checkout', checkout_path, data: {turbo: false}, method: :get, class: "button is-link"%>
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_205657) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_11_072211) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -23,6 +23,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_205657) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.integer "province_id", null: false
+    t.string "street_name"
+    t.integer "street_number"
+    t.integer "unit_number"
+    t.string "city"
+    t.string "postal_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["province_id"], name: "index_addresses_on_province_id"
+    t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -109,19 +123,32 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_205657) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "user_name"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.string "password"
-    t.text "user_bio"
-    t.string "profile_pic"
-    t.integer "account_type"
-    t.string "favourite_game"
-    t.string "favourite_genre"
+  create_table "user_addresses", force: :cascade do |t|
+    t.integer "user_id_id", null: false
+    t.integer "address_id_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["address_id_id"], name: "index_user_addresses_on_address_id_id"
+    t.index ["user_id_id"], name: "index_user_addresses_on_user_id_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "province_id"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["province_id"], name: "index_users_on_province_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "addresses", "provinces"
+  add_foreign_key "addresses", "users"
+  add_foreign_key "user_addresses", "address_ids"
+  add_foreign_key "user_addresses", "user_ids"
+  add_foreign_key "users", "provinces"
 end

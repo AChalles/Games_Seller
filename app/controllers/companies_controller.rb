@@ -1,4 +1,5 @@
 class CompaniesController < ApplicationController
+  skip_before_action :authenticate_user!
   def index
     @companies = Company.order(name: :asc).page(params[:page])
 

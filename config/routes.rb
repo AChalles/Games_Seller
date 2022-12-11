@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  get 'checkout/index'
-
+  get "checkout", to: "checkout#show"
+  get "success", to: "checkout#success", as: "success"
+  get "cancel", to: "checkout#cancel", as: "cancel"
   get 'past_order/index'
   get 'past_order/show'
   get 'order/index'
@@ -22,6 +23,9 @@ Rails.application.routes.draw do
   delete 'games/remove_from_cart/:id', to: 'games#remove_from_cart', as: 'remove_from_cart'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
   resources :genres
   resources :companies
   #resources :games
@@ -31,5 +35,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+
   root to: 'games#index'
 end

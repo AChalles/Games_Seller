@@ -1,19 +1,20 @@
 class ApplicationController < ActionController::Base
+  before_action :authenticate_user!
   before_action :initialize_genres
   before_action :initialize_session
   before_action :load_cart
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
 
   def add_to_cart
     id = params[:id].to_i
     quantity = 1
-    iteration = 0
-    count = 0
     if session[:cart_id].include?(id)
       index = session[:cart_id].index(id)
       session[:cart_quantity][index] += 1
     else
-      session[:cart_quantity] << quantity unless session[:cart_id].include?(id)
-      session[:cart_id] << id unless session[:cart_id].include?(id)
+      session[:cart_quantity] << quantity
+      session[:cart_id] << id
     end
 
     redirect_to root_path
@@ -70,7 +71,18 @@ class ApplicationController < ActionController::Base
     if !session[:cart_id].blank? && !session[:cart_id].empty?
       @cart_id = Game.find(session[:cart_id])
       @cart_quantity = session[:cart_quantity]
+    else
+      @cart_id = []
+      @cart_quantity = []
     end
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    attributes = [:province_id]
+    devise_parameter_sanitizer.permit(:sign_up, keys: attributes)
+    devise_parameter_sanitizer.permit(:account_update, keys: attributes)
   end
 
 
