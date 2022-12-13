@@ -110,6 +110,7 @@ GEM
       warden (~> 1.2.3)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    erb-formatter (0.3.0)
     erubi (1.11.0)
     ffi (1.15.5)
     formtastic (4.0.0)
@@ -299,6 +300,7 @@ DEPENDENCIES
   capybara
   debug
   devise
+  erb-formatter (~> 0.3.0)
   importmap-rails
   jbuilder
   kaminari

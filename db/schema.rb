@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_11_072211) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_12_234907) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -75,16 +75,38 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_11_072211) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "unit_price"
+    t.integer "quantity"
+    t.integer "game_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_order_items_on_game_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "order_statuses", force: :cascade do |t|
+    t.string "status"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "orders", force: :cascade do |t|
     t.date "order_placed"
     t.date "order_processed"
     t.date "order_shipped"
-    t.string "order_status"
-    t.decimal "sub_total"
-    t.decimal "order_total"
-    t.decimal "total_payed"
+    t.integer "sub_total"
+    t.integer "order_total"
+    t.integer "total_payed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "taxes"
+    t.integer "user_id", null: false
+    t.integer "order_status_id", null: false
+    t.index ["order_status_id"], name: "index_orders_on_order_status_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "pages", force: :cascade do |t|
@@ -123,15 +145,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_11_072211) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_addresses", force: :cascade do |t|
-    t.integer "user_id_id", null: false
-    t.integer "address_id_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["address_id_id"], name: "index_user_addresses_on_address_id_id"
-    t.index ["user_id_id"], name: "index_user_addresses_on_user_id_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -148,7 +161,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_11_072211) do
 
   add_foreign_key "addresses", "provinces"
   add_foreign_key "addresses", "users"
-  add_foreign_key "user_addresses", "address_ids"
-  add_foreign_key "user_addresses", "user_ids"
+  add_foreign_key "order_items", "games"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "order_statuses"
+  add_foreign_key "orders", "users"
   add_foreign_key "users", "provinces"
 end

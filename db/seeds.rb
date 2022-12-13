@@ -141,7 +141,7 @@ def seed_provinces
   Province.create(
     name: "Quebec",
     abbr: "QB",
-    pst: 0.0975,
+    pst: 0.09975,
     hst: 0,
     gst: 0.05
   )
@@ -180,7 +180,41 @@ def seed_pages
   )
 end
 
+def seed_statuses
+  OrderStatus.delete_all
+  OrderStatus.create(
+    status: "Placed",
+    code: "P"
+  )
+
+  OrderStatus.create(
+    status: "Pending - Shipping",
+    code: "PEN-S"
+  )
+
+  OrderStatus.create(
+    status: "Shipped",
+    code: "S"
+  )
+
+  OrderStatus.create(
+    status: "Error - Payment",
+    code: "E-P"
+  )
+
+  OrderStatus.create(
+    status: "Error - Address",
+    code: "E-A"
+  )
+
+  OrderStatus.create(
+    status: "Cancelled",
+    code: "C"
+  )
+end
+
 #seed_admin();
 #seed_games();
 #seed_provinces();
-seed_pages();
+#seed_pages();
+seed_statuses();

@@ -84,3 +84,5 @@ gem 'rest-client', '~> 2.1'
 gem "bulma-rails", "~> 0.9.4"
 
 gem "stripe", "~> 8.0"
+
+gem "erb-formatter", "~> 0.3.0"

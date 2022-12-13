@@ -1,3 +1,5 @@
 class Order < ApplicationRecord
-  has_many :games
+  has_many :order_items
+  belongs_to :order_status
+  belongs_to :user
 end

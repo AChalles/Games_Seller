@@ -1,9 +1,11 @@
+include ActionView::Helpers::NumberHelper
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :initialize_genres
   before_action :initialize_session
   before_action :load_cart
   before_action :configure_permitted_parameters, if: :devise_controller?
+
 
 
   def add_to_cart
@@ -77,7 +79,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
   protected
+
+  def calculate_tax(province, total)
+    prov = Province.find(province)
+    tax = (prov.gst * total) + (prov.hst * total) + (prov.pst * total)
+    number_with_precision(tax, precision: 0).to_i
+
+  end
 
   def configure_permitted_parameters
     attributes = [:province_id]

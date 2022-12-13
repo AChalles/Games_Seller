@@ -1,12 +1,11 @@
 class CheckoutController < ApplicationController
-  skip_before_action :authenticate_user!
 
   def index
     if !params[:province] || params[:province].blank?
       if current_user && !current_user.blank? && !current_user.province_id.nil?
         params[:province] = current_user.province_id
       else
-        params[:province] = 0
+        params[:province] = 1
       end
     end
     @tax_percent = update_tax()
@@ -46,6 +45,36 @@ class CheckoutController < ApplicationController
       automatic_tax: {enabled: true},
     })
     redirect_to session.url, allow_other_host: true
+  end
+
+
+  def success
+    if(session[:cart_id] && !session[:cart_id].blank?)
+      games = Game.find(session[:cart_id])
+      sub_total = 0
+      games.each_with_index do |g, i|
+        sub_total = sub_total + (g.price * session[:cart_quantity][i])
+      end
+      tax = calculate_tax(current_user.province_id, sub_total)
+
+      new_order = Order.create(
+        sub_total: sub_total,
+        taxes: tax,
+        order_total: (sub_total + tax),
+        user_id: current_user.id,
+        order_status: OrderStatus.find_by(code: 'PEN-S')
+      )
+
+      games.each_with_index do |g, i|
+        new_order.order_items.create(
+          game_id: g.id,
+          unit_price: g.price,
+          quantity: session[:cart_quantity][i]
+        )
+      end
+      session[:cart_quantity] = []
+      session[:cart_id] = []
+    end
   end
 
   private

@@ -1,2 +1,26 @@
-<h1>Order#index</h1>
-<p>Find me in app/views/order/index.html.erb</p>
+<h1>All Orders</h1>
+
+<table class="table">
+  <thead>
+    <th>Order Number</th>
+    <th>Order Date</th>
+    <th>Last Update</th>
+    <th>Order Status</th>
+    <th>Taxes</th>
+    <th>Total Cost</th>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |i|%>
+      <tr>
+        <td><%=link_to i.id, order_show_path(i) %></td>
+        <td><%= i.created_at %></td>
+        <td><%= i.updated_at %></td>
+        <td><%= i.order_status %></td>
+        <td><%= number_to_currency i.taxes/ 100.0 %></td>
+        <td><%= number_to_currency i.order_total/100.0 %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

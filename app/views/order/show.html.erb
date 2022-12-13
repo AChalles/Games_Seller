@@ -1,2 +1,62 @@
-<h1>Order#show</h1>
-<p>Find me in app/views/order/show.html.erb</p>
+<%
+subTotal = 0
+tax_percent = 0
+tax = 0%>
+
+<div class= "container">
+<h1 class="title is-1">Order Number: <%= @order.id %></h1>
+<h2 class="title is-2">Order Status: <%= @order.order_status%></h2>
+<table class="table">
+<thead>
+  <th>Product</th>
+  <th>Quantity</th>
+  <th>Price</th>
+</thead>
+<tbody>
+  <% @order.order_items.each do |item|%>
+  <tr>
+    <td>
+      <%= link_to item.game.name, item.game%>
+    </td>
+    <td>
+      <%= item.quantity %>
+    </td>
+    <td>
+      <%=number_to_currency (item.quantity * item.unit_price)/100.0%>
+      <% subTotal = subTotal + item.quantity * item.unit_price%>
+    </td>
+
+  </tr>
+  <% end %>
+  <tr>
+    <td>
+    </td>
+     <td>
+      Sub Total
+    </td>
+    <td>
+    <%= number_to_currency subTotal/100.0%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+     <td>
+      Taxes
+    </td>
+    <td>
+    <%= number_to_currency @order.taxes/100.0%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+      Total
+    </td>
+    <td>
+    <%= number_to_currency (@order.order_total)/100.0%>
+    </td>
+  </tr>
+</tbody>
+</table>
