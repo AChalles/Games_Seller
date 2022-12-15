@@ -62,7 +62,8 @@ class CheckoutController < ApplicationController
         taxes: tax,
         order_total: (sub_total + tax),
         user_id: current_user.id,
-        order_status: OrderStatus.find_by(code: 'PEN-S')
+        order_status: OrderStatus.find_by(code: 'PEN-S'),
+        total_payed: (sub_total + tax)
       )
 
       games.each_with_index do |g, i|
