@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
+  authenticated :user do
+    root to: 'games#index', as: :root_app
+  end
   resources :genres
   resources :companies
   #resources :games

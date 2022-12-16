@@ -1,5 +1,5 @@
 class CheckoutController < ApplicationController
-
+  before_action :authenticate_user!
   def index
     if !params[:province] || params[:province].blank?
       if current_user && !current_user.blank? && !current_user.province_id.nil?
